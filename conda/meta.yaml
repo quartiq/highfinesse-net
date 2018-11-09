@@ -1,0 +1,33 @@
+package:
+  name: highfinesse-net
+  version: {{ environ.get("GIT_DESCRIBE_TAG", "")[1:] }}
+
+source:
+  git_url: ..
+
+build:
+  noarch: python
+  number: {{ environ.get("GIT_DESCRIBE_NUMBER", 0) }}
+  string: py_{{ environ.get("GIT_DESCRIBE_NUMBER", 0) }}+git{{ environ.get("GIT_FULL_HASH", "")[:8] }}
+  entry_points:
+    - aqctl_highfinesse_net = highfinesse_net.aqctl_highfinesse_net:main
+  script: $PYTHON setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python >=3.5.3
+    - setuptools
+  run:
+    - python >=3.5.3
+    - artiq
+
+test:
+  imports:
+    - highfinesse_net.protocol
+    - highfinesse_net.tcp
+    - highfinesse_net.wavemeter
+
+about:
+  home: https://github.com/quartiq/highfinesse-net
+  license: LGPL
+  summary: 'Driver for HighFinesse Wavemeter in opticlock'
