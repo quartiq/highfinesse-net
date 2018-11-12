@@ -42,6 +42,10 @@ class Protocol:
         if int(ret) != 0:
             raise HighFinesseError(ret)
 
+    async def is_started(self):
+        """"""
+        return int(await self.ask_check("isStarted")) == 0
+
     async def start_device(self):
         """"""
         await self.ask_check("startDevice")
