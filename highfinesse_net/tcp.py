@@ -14,7 +14,10 @@ class TCP(Protocol):
     @classmethod
     async def connect(cls, host, port=1234, **kwargs):
         reader, writer = await asyncio.open_connection(host, port, **kwargs)
-        return cls(reader, writer)
+        obj = cls(reader, writer)
+        if int(await obj.readline()) != 200:
+            raise ValueError("did not receive `200`")
+        return obj
 
     def __enter__(self):
         return self
