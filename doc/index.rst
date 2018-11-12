@@ -15,14 +15,14 @@ Contents:
 
 
 :mod:`highfinesse_net.tcp` module
---------------------------------------
+---------------------------------
 
 .. automodule:: highfinesse_net.tcp
     :members:
 
 
 :mod:`highfinesse_net.wavemeter` module
---------------------------------------
+---------------------------------------
 
 .. automodule:: highfinesse_net.wavemeter
     :members:
