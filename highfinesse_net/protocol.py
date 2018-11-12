@@ -1,4 +1,5 @@
 import logging
+import asyncio
 
 logger = logging.getLogger(__name__)
 
@@ -67,8 +68,14 @@ class Protocol:
         return [int(_) for _ in (await self.ask("getVersion")).split(",")]
 
     async def ping(self):
-        """"""
-        return await self.get_version()
+        try:
+            await self.get_version()
+        except asyncio.CancelledError:
+            raise
+        except:
+            logger.warning("ping failed", exc_info=True)
+            return False
+        return True
 
     async def get_calibration_wavelength(self, mode):
         """
