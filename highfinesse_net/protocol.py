@@ -69,7 +69,12 @@ class Protocol:
         revision Nr. <int>,
         Software Nr. <int>"
         """
-        return [int(_) for _ in (await self.ask("getVersion")).split(",")]
+        self.do("getVersion")
+        ret = []
+        for i in range(4):
+            ret.append(await self._readline())
+        return ret
+        #int(_) for _ in (await self.ask("getVersion")).split(",")]
 
     async def ping(self):
         try:
@@ -107,7 +112,7 @@ class Protocol:
         """x: channel (1-8)
         y: CCD-Array (1-2)
         """
-        return int(await self.ask("setExposureNum", channel, ccd))
+        return int(await self.ask("getExposureNum", channel, ccd))
 
     async def set_auto_exposure_num(self, channel, enable):
         """channel: 1-8"""
@@ -123,7 +128,7 @@ class Protocol:
 
     async def get_channel_count(self):
         """"""
-        return int(await self.ask("setChannelCount"))
+        return int(await self.ask("getChannelCount"))
 
     async def get_active_channel(self):
         """"""
