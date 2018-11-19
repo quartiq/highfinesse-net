@@ -167,9 +167,9 @@ class Protocol:
         """"""
         return int(await self.ask("getDeviationMode"))
 
-    async def set_pid_course_num(self, channel, data):
+    async def set_pid_course_num(self, channel, wavelength):
         """channel: 1-8"""
-        return int(await self.ask("setPidCourseNum", channel, data))
+        return int(await self.ask("setPidCourseNum", channel, wavelength))
 
     async def get_pid_course_num(self, channel):
         """channel: 1-8"""
