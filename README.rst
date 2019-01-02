@@ -1,6 +1,10 @@
 HighFinesse Wavemeter drivers for opticlock
 ===========================================
 
+.. image:: https://gitlab.com/quartiq/highfinesse-new/badges/master/pipeline.svg
+    :target: https://gitlab.com/quartiq/highfinesse-net/commits/master
+    :alt: CI/CD Pipeline Status
+
 .. image:: https://readthedocs.org/projects/highfinesse-net/badge/?version=latest
     :target: http://highfinesse-net.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
