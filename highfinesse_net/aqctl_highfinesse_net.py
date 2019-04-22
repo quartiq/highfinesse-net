@@ -8,8 +8,7 @@ import asyncio
 from .wavemeter import Wavemeter
 
 from artiq.protocols.pc_rpc import Server
-from artiq.tools import (verbosity_args, simple_network_args, init_logger,
-                         bind_address_from_args)
+from artiq import tools
 
 
 logger = logging.getLogger(__name__)
@@ -21,14 +20,17 @@ def get_argparser():
     parser.add_argument(
         "-d", "--device", default=None,
         help="Device host name or IP address.")
-    simple_network_args(parser, 3273)
-    verbosity_args(parser)
+    tools.simple_network_args(parser, 3273)
+    if hasattr(tools, "add_common_args"):
+        tools.add_common_args(parser)  # ARTIQ-5
+    else:
+        tools.verbosity_args(parser)   # ARTIQ-4
     return parser
 
 
 def main():
     args = get_argparser().parse_args()
-    init_logger(args)
+    tools.init_logger(args)
 
     if args.device is None:
         print("You need to supply a -d/--device "
@@ -40,7 +42,7 @@ def main():
     async def run():
         with await Wavemeter.connect(args.device, loop=loop) as dev:
             server = Server({"wavemeter": dev}, None, True)
-            await server.start(bind_address_from_args(args), args.port)
+            await server.start(tools.bind_address_from_args(args), args.port)
             try:
                 await server.wait_terminate()
             finally:
