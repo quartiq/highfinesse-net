@@ -7,7 +7,7 @@ from setuptools import find_packages
 
 setup(
     name="highfinesse-net",
-    version="0.1",
+    version="0.2",
     description="Driver for HighFinesse Wavement used in opticlock",
     long_description=open("README.rst").read(),
     author="Robert Jördens",
@@ -15,7 +15,7 @@ setup(
     url="https://github.com/quartiq/highfinesse-net",
     download_url="https://github.com/quartiq/highfinesse-net",
     packages=find_packages(),
-    install_requires=[],
+    install_requires=["sipyco"],
     entry_points={
         "console_scripts": [
             "aqctl_highfinesse_net = highfinesse_net.aqctl_highfinesse_net:main",
