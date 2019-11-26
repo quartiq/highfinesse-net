@@ -16,10 +16,13 @@ logger = logging.getLogger(__name__)
 
 def get_argparser():
     parser = argparse.ArgumentParser(
-        description="""HighFinesse Wavemeter controller.""")
+        description="""HighFinesse Wavemeter controller""")
     parser.add_argument(
         "-d", "--device", default=None,
-        help="Device host name or IP address.")
+        help="Device host name or IP address")
+    parser.add_argument(
+        "-o", "--device-port", default=1234,
+        help="Device TCP port number")
     common_args.simple_network_args(parser, 3273)
     common_args.verbosity_args(parser)   # ARTIQ-4
     return parser
@@ -37,7 +40,8 @@ def main():
     loop = asyncio.get_event_loop()
 
     async def run():
-        with await Wavemeter.connect(args.device, loop=loop) as dev:
+        with await Wavemeter.connect(
+                args.device, port=args.device_port, loop=loop) as dev:
             server = Server({"wavemeter": dev}, None, True)
             await server.start(common_args.bind_address_from_args(args), args.port)
             try:
