@@ -24,7 +24,7 @@ def get_argparser():
         "-o", "--device-port", default=1234,
         help="Device TCP port number")
     common_args.simple_network_args(parser, 3273)
-    common_args.verbosity_args(parser)   # ARTIQ-4
+    common_args.verbosity_args(parser)
     return parser
 
 
