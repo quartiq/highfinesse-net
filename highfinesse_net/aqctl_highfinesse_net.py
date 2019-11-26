@@ -7,7 +7,7 @@ import asyncio
 
 from .wavemeter import Wavemeter
 
-from sipyco.pc_rpc import simple_server_loop
+from sipyco.pc_rpc import Server
 from sipyco import common_args
 
 
