@@ -42,6 +42,7 @@ def main():
     async def run():
         with await Wavemeter.connect(
                 args.device, port=args.device_port, loop=loop) as dev:
+            logger.debug("connected, version %s", await dev.get_version())
             server = Server({"wavemeter": dev}, None, True)
             await server.start(common_args.bind_address_from_args(args), args.port)
             try:
