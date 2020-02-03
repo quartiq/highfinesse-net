@@ -73,7 +73,7 @@ class Protocol:
         """
         self.do("getVersion")
         ret = []
-        for i in range(5):
+        for i in range(4):
             ret.append(await self._readline())
         return ret
         #int(_) for _ in (await self.ask("getVersion")).split(",")]
