@@ -33,7 +33,8 @@ class TCP(Protocol):
 
     async def _readline(self):
         r = await self._reader.readline()
-        assert r.endswith(self.eol_read)
+        if not r.endswith(self.eol_read):
+            raise ValueError("eol not found in response", r)
         return r[:-len(self.eol_read)].decode()
 
     async def _read(self, n):
