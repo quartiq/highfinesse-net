@@ -68,10 +68,12 @@ class Protocol:
         Version Nr. <int>,
         revision Nr. <int>,
         Software Nr. <int>"
+
+        Warning: non-standard format, not ask()-able
         """
         self.do("getVersion")
         ret = []
-        for i in range(4):
+        for i in range(5):
             ret.append(await self._readline())
         return ret
         #int(_) for _ in (await self.ask("getVersion")).split(",")]
